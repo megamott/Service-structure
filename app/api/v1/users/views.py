@@ -1,7 +1,7 @@
 from aiohttp import web
 
 from app.repositories.common import UserRepository
-from app.models.common import User
+from app.models.users import User
 
 router = web.RouteTableDef()
 
