@@ -5,9 +5,13 @@ class UserBase(BaseModel):
     name: str
 
 
-class UserCreate(UserBase):
+class UserCreateValidator(UserBase):
     ...
 
 
-class User(UserBase):
-    ...
+class UserValidator(UserBase):
+    id: int
+
+
+class UserIdValidator(BaseModel):
+    id: int
