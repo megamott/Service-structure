@@ -1,1 +1,2 @@
-database_url: ''
+database_url: postgresql+asyncpg://postgres:postgres@localhost/postgres
+database_echo: True

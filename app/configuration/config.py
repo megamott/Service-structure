@@ -11,6 +11,7 @@ CONFIG_FILE_NAME = "config.yaml"
 
 class Settings(BaseModel):
     database_url: str
+    database_echo: bool
 
 
 @lru_cache
