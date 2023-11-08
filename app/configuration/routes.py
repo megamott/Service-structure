@@ -2,7 +2,8 @@ from dataclasses import dataclass
 
 from aiohttp import web
 
-from app.api.common import views as common_views
+from app.api.v1.common import views as v1_common_views
+from app.api.v1.users import views as v1_users_views
 
 
 @dataclass(frozen=True)
@@ -16,6 +17,7 @@ class Routers:
 
 routers = Routers(
     routers=(
-        common_views.router,
+        v1_common_views.router,
+        v1_users_views.router,
     )
 )
