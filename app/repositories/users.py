@@ -22,13 +22,13 @@ class UserRepository:
             users = result.scalars().all()
 
         return list(users)
-    
+
     async def retrieve(self, user_id: str) -> Optional[User]:
         session: AsyncSession
         async with self.session() as session:
             user = await session.get(User, int(user_id))
         return user
-    
+
     async def create(self, user_data: dict) -> User:
         session: AsyncSession
         async with self.session() as session:
@@ -46,14 +46,14 @@ class UserRepository:
 
             if not user:
                 return None
-            
+
             for name, value in user_data.items():
                 setattr(user, name, value)
 
             await session.commit()
-        
+
         return user
-    
+
     async def delete(self, user_id: str) -> bool:
         session: AsyncSession
         async with self.session() as session:
@@ -61,7 +61,7 @@ class UserRepository:
 
             if not user:
                 return False
-            
+
             await session.delete(user)
             await session.commit()
 

@@ -2,8 +2,8 @@ import os
 from functools import lru_cache
 
 import yaml
-from pydantic import BaseModel
 from aiohttp import web
+from pydantic import BaseModel
 
 CONFIG_PATH = "SERVICE_CONFIG_PATH"
 CONFIG_FILE_NAME = "config.yaml"

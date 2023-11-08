@@ -1,8 +1,8 @@
 from aiohttp import web
 
-from app.configuration.routes import routers
-from app.configuration.events import events
 from app.configuration.config import setup_config
+from app.configuration.events import events
+from app.configuration.routes import routers
 
 
 class Server:

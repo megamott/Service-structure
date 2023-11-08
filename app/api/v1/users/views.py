@@ -1,13 +1,12 @@
 from aiohttp import web
-
 from pydantic import ValidationError
 
-from app.repositories.users import UserRepository
 from app.api.v1.users.schemas import (
-    UserValidator,
     UserCreateValidator,
-    UserIdValidator
+    UserIdValidator,
+    UserValidator,
 )
+from app.repositories.users import UserRepository
 
 router = web.RouteTableDef()
 
@@ -32,7 +31,7 @@ async def get_user(request: web.Request) -> web.Response:
     user = await UserRepository().retrieve(user_id)
     if user is not None:
         return web.json_response(user.as_dict())
-    
+
     raise web.HTTPNotFound(text=f"User {user_id} not found")
 
 
@@ -48,7 +47,7 @@ async def create_user(request: web.Request) -> web.Response:
     user = await UserRepository().create(user_data)
 
     return web.json_response(user.as_dict())
-    
+
 
 @router.patch("/api/v1/users/{user_id}/")
 async def update_user(request: web.Request) -> web.Response:
