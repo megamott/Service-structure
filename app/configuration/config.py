@@ -15,7 +15,7 @@ class Settings(BaseModel):
 
 
 @lru_cache
-def get_settings() -> Settings:
+def _read_settings() -> Settings:
     path_to_yaml = os.getenv(CONFIG_PATH, CONFIG_FILE_NAME)
 
     with open(path_to_yaml, "r") as f:
@@ -25,4 +25,8 @@ def get_settings() -> Settings:
 
 
 def setup_config(app: web.Application) -> None:
-    app["config"] = get_settings()
+    app["config"] = _read_settings()
+
+
+def get_settings() -> Settings:
+    return _read_settings()
