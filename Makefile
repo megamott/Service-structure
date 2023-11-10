@@ -1,3 +1,15 @@
+start:
+	poetry run gunicorn app:create_app --bind=localhost:8000 --worker-class aiohttp.GunicornWebWorker --reload -w 6 --timeout=7200
+
+migrate:
+	poetry run alembic upgrade head
+
+test:
+	poetry run coverage run --source='.' -m pytest -v tests
+
+report:
+	poetry run coverage report
+
 ruff:
 	poetry run ruff check app/
 
