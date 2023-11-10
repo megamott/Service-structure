@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from app.api.v1.users.schemas import (
     UserCreateValidator,
     UserIdValidator,
-    UserValidator,
+    UserSerializator,
 )
 from app.repositories.users import UserRepository
 
@@ -16,7 +16,7 @@ async def get_users(request: web.Request) -> web.Response:
     users = await UserRepository().list()
 
     return web.json_response(
-        [UserValidator(**user.as_dict()).model_dump() for user in users]
+        [UserSerializator(**user.as_dict()).model_dump() for user in users]
     )
 
 
@@ -46,7 +46,7 @@ async def create_user(request: web.Request) -> web.Response:
 
     user = await UserRepository().create(user_data)
 
-    return web.json_response(user.as_dict())
+    return web.json_response(user.as_dict(), status=201)
 
 
 @router.patch("/api/v1/users/{user_id}/")
@@ -56,7 +56,7 @@ async def update_user(request: web.Request) -> web.Response:
 
     try:
         UserCreateValidator.model_validate(user_data)
-        UserIdValidator.model_validate(user_id)
+        UserIdValidator.model_validate({"id": user_id})
     except ValidationError:
         raise web.HTTPBadRequest(text="User data is not correct")
 

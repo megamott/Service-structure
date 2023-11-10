@@ -9,9 +9,9 @@ class UserCreateValidator(UserBase):
     ...
 
 
-class UserValidator(UserBase):
+class UserIdValidator(BaseModel):
     id: int
 
 
-class UserIdValidator(BaseModel):
+class UserSerializator(UserBase):
     id: int
