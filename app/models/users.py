@@ -12,6 +12,3 @@ class User(Base):
 
     def __repr__(self) -> str:
         return str(self)
-
-    def as_dict(self) -> dict:
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
