@@ -23,17 +23,22 @@ pip install poetry
 poetry install
 ```
 
-4. Запускаем приложение
+4. Накатываем миграции
+```bash
+alembic upgrade head
+```
+
+5. Запускаем приложение
 ```bash
 make start
 ```
 
-5. Запускаем тесты
+6. Запускаем тесты
 ```bash
 make test
 ```
 
-6. Настраиваем pre-commit хуки
+7. Настраиваем pre-commit хуки
 ```bash
 poetry run pre-commit install
 ```
