@@ -1,0 +1,11 @@
+repos:
+  - repo: local
+
+    hooks:
+
+      - id: black
+        name: black
+        entry: bash -c 'make black; git add -u'
+        language: system
+        types: [python]
+        stages: [commit]
