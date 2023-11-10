@@ -5,26 +5,30 @@ from sqlalchemy import select
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.configuration.models.db_helper import DatabaseHelper
+from app.configuration.database.db_helper import DatabaseHelper
 from app.models.users import User
 
 
 class UserRepositoryInterface(ABC):
+    @abstractmethod
+    async def list(self):
+        ...
 
     @abstractmethod
-    async def list(self): ...
+    async def retrieve(self, user_id: str):
+        ...
 
     @abstractmethod
-    async def retrieve(self, user_id: str): ...
+    async def create(self, user_data: dict):
+        ...
 
     @abstractmethod
-    async def create(self, user_data: dict): ...
+    async def update(self, user_id: str, user_data: dict):
+        ...
 
     @abstractmethod
-    async def update(self, user_id: str, user_data: dict): ...
-
-    @abstractmethod
-    async def delete(self, user_id: str) -> bool: ...
+    async def delete(self, user_id: str) -> bool:
+        ...
 
 
 class UserRepository(UserRepositoryInterface):

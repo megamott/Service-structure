@@ -8,8 +8,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.configuration.config import Settings
 from app import create_app
-from app.configuration.models.base import Base
-from app.configuration.models.db_helper import DatabaseHelper
+from app.configuration.database.base import Base
+from app.configuration.database.db_helper import DatabaseHelper
 
 
 settings = Settings(**{

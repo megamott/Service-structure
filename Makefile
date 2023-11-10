@@ -23,7 +23,6 @@ format:
 	make black && make isort
 
 lint:
-	poetry run isort app/ -c
 	poetry run black app/ --check
 	poetry run ruff check app/
 

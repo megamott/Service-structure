@@ -1,8 +1,12 @@
 from asyncio import current_task
 from contextlib import asynccontextmanager
 
-from sqlalchemy.ext.asyncio import (AsyncSession, async_scoped_session,
-                                    async_sessionmaker, create_async_engine)
+from sqlalchemy.ext.asyncio import (
+    AsyncSession,
+    async_scoped_session,
+    async_sessionmaker, 
+    create_async_engine,
+)
 
 from app.configuration.config import get_settings
 

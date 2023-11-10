@@ -4,7 +4,7 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.users import User
-from configuration.models.db_helper import DatabaseHelper
+from configuration.database.db_helper import DatabaseHelper
 
 
 async def test_create_user_success(client: TestClient, db: DatabaseHelper) -> None:
