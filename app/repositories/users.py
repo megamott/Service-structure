@@ -4,34 +4,31 @@ from sqlalchemy import select
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.configuration.models.db_helper import db_helper
+from app.configuration.models.db_helper import DatabaseHelper
 from app.models.users import User
 
 
 class UserRepository:
     def __init__(self) -> None:
-        self.db_helper = db_helper
-        self.session: AsyncSession = db_helper.get_session()
+        self.db = DatabaseHelper()
 
     async def list(self) -> list[User]:
-        statement = select(User).order_by(User.id)
-
         session: AsyncSession
-        async with self.session() as session:
-            result: Result = await session.execute(statement)
+        async with self.db.session() as session:
+            result: Result = await session.execute(select(User).order_by(User.id))
             users = result.scalars().all()
 
         return list(users)
 
     async def retrieve(self, user_id: str) -> Optional[User]:
         session: AsyncSession
-        async with self.session() as session:
+        async with self.db.session() as session:
             user = await session.get(User, int(user_id))
         return user
 
     async def create(self, user_data: dict) -> User:
         session: AsyncSession
-        async with self.session() as session:
+        async with self.db.session() as session:
             user = User(**user_data)
             session.add(user)
             await session.commit()
@@ -41,7 +38,7 @@ class UserRepository:
 
     async def update(self, user_id: str, user_data: dict) -> Optional[User]:
         session: AsyncSession
-        async with self.session() as session:
+        async with self.db.session() as session:
             user = await session.get(User, int(user_id))
 
             if not user:
@@ -51,12 +48,13 @@ class UserRepository:
                 setattr(user, name, value)
 
             await session.commit()
+            await session.refresh(user)
 
         return user
 
     async def delete(self, user_id: str) -> bool:
         session: AsyncSession
-        async with self.session() as session:
+        async with self.db.session() as session:
             user = await session.get(User, int(user_id))
 
             if not user:
